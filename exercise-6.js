@@ -72,7 +72,7 @@ function htmlThis(contentArray) {
         '<div id="contents">\
         <h1>List of contents</h1>\
         <ul class="contents-list">';
-    console.log(contentArray);
+    //console.log(contentArray);
     contentArray.forEach(function(content) {
         htmlString +=
             '<li class="content-item">\

@@ -12,24 +12,28 @@ function operate(operand,num1,num2){
         case 'div':
             return num1/num2;
         default:
-            return 'invalid';
+            throw new Error("The operand must be add, sub, mult, or div");
     }
 }
 
 app.get('/op/:op/:firstOp/:secondOp', function (req, res) {
-    var solution = operate(req.params.op,req.params.firstOp,req.params.secondOp);
+    var num1 = parseInt(req.params.firstOp);
+    var num2 = parseInt(req.params.secondOp);
+    try{
+        var solution = operate(req.params.op,num1,num2);
+    }
+    catch(e){
+        res.send(400, e.message);
+    }
     var requestedObject = {
         operator: req.params.op,
-        firstOperand: req.params.firstOp,
-        secondOperand: req.params.secondOp,
+        firstOperand: num1,
+        secondOperand: num2,
         solution: solution
     };
-    if(solution === 'invalid'){
-        res.sendStatus(400);
-    }
-    else{
-        res.send(JSON.stringify(requestedObject));
-    }
+    
+    res.json(requestedObject);
+
 });
 
 
