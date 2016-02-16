@@ -21,21 +21,19 @@ app.get('/op/:op/:firstOp/:secondOp', function (req, res) {
     var num2 = parseInt(req.params.secondOp);
     try{
         var solution = operate(req.params.op,num1,num2);
+        var requestedObject = {
+            operator: req.params.op,
+            firstOperand: num1,
+            secondOperand: num2,
+            solution: solution
+        };
+        res.json(requestedObject);
     }
     catch(e){
-        res.send(400, e.message);
+        res.status(400).send(e.message);
     }
-    var requestedObject = {
-        operator: req.params.op,
-        firstOperand: num1,
-        secondOperand: num2,
-        solution: solution
-    };
-    
-    res.json(requestedObject);
 
 });
-
 
 /* YOU DON'T HAVE TO CHANGE ANYTHING BELOW THIS LINE :) */
 
